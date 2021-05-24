@@ -39,6 +39,7 @@ do
     esac
 done
 
+echo
 echo "HOSTNAME: ${HOSTNAME}"
 echo "USER: ${USER}"
 echo "IP: ${IP}"
@@ -49,7 +50,7 @@ echo
 read -r -p "Continue? [Y/n] " input
 case $input in
 	[yY][eE][sS]|[yY])
- 		echo "Yes";;
+ 		echo;;
 
     	[nN][oO]|[nN])
  		echo "Aborting."
