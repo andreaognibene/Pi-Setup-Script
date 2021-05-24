@@ -1,7 +1,7 @@
 #!/bin/bash
 # Parameters: -h --hostname Hostname, -u --user Username, -i --ip Static IP, -g --gateway Gateway, -d --dns DNS server
 
-# Default values if no parameters are provided. Change as needed.
+# Default values if no parameters are provided.
 HOSTNAME="Ogni-Pi4-1"
 USER="ogni"
 IP="192.168.1.3/24"			# With netmask, e.g. 192.168.1.2/24
@@ -46,23 +46,31 @@ echo "GATEWAY: ${GATEWAY}"
 echo "DNS: ${DNS}"
 
 echo
-read -p "Continue? (y/n)" -n 1 -r
-echo
-if [[ ! $REPLY =~ ^[Yy]$ ]]
-then
-    [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1
-fi
+read -r -p "Continue? [Y/n] " input
+case $input in
+	[yY][eE][sS]|[yY])
+ 		echo "Yes";;
+
+    	[nN][oO]|[nN])
+ 		echo "Aborting."
+		exit 1;;
+
+    	*)
+ 		exit 1;;
+esac
 
 # Change hostname.
 echo "Changing host name to ${HOSTNAME}..."
 hostnamectl set-hostname ${HOSTNAME}
 echo "Done."
+echo
 
 # Add user and add to SUDO group.
 echo "Creating new user ${USER}..."
 adduser ${USER}
 usermod -aG sudo ${USER}
 echo "Done."
+echo
 
 # Basic UFW setup.
 echo "Setting up UFW..."
@@ -72,6 +80,7 @@ ufw allow 443/tcp
 ufw enable
 ufw logging on
 echo "Done."
+echo
 
 # Static IP setup.
 echo "Setting up static IP ${IP}..."
@@ -83,14 +92,33 @@ wget https://raw.githubusercontent.com/andreaognibene/Pi-Setup-Script/main/99-di
 rm /etc/netplan/50-cloud-init.yaml
 netplan apply
 echo "Done."
+echo
 
+# Root password setup.
+echo "Changing root password..."
+passwd root
+echo "Done."
 echo
-read -p "Run APT update and upgrade? (y/n)" -n 1 -r
+
+# SSH root login setup.
+echo "Allowing SSH root login setup..."
+sed -i "s|#PermitRootLogin without-password|PermitRootLogin yes|g" /etc/ssh/sshd_config
+systemctl restart sshd
+echo "Done."
 echo
-if [[ ! $REPLY =~ ^[Yy]$ ]]
-then
-    [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1
-fi
+
+read -r -p "Run APT update and upgrade? [Y/n] " input
+case $input in
+	[yY][eE][sS]|[yY])
+ 		echo "Yes";;
+
+    	[nN][oO]|[nN])
+ 		echo "Aborting."
+		exit 1;;
+
+    	*)
+ 		exit 1;;
+esac
 
 # Update APT repository.
 apt update && apt upgrade -y
