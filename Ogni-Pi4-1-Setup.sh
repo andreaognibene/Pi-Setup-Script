@@ -1,7 +1,5 @@
 #!/bin/bash
 
-sudo su
-
 # Change hostname.
 hostnamectl set-hostname Ogni-Pi4-1
 
@@ -19,6 +17,10 @@ ufw logging on
 # Setup static IP.
 wget https://github.com/andreaognibene/Ogni-Pi4-1-Setup-Script/raw/main/01-netcfg.yaml -P /etc/netplan/
 netplan apply
+# TODO Remove 50-cloud-init.yaml
 
 # Update APT repository.
 apt update && apt upgrade -y
+
+# Reboot.
+reboot
