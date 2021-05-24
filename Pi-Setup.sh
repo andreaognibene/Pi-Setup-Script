@@ -26,12 +26,12 @@ do
         shift # Remove argument name from processing
         shift # Remove argument value from processing
         ;;
-		-g|--gateway)
+	-g|--gateway)
         GATEWAY="$2"
         shift # Remove argument name from processing
         shift # Remove argument value from processing
         ;;
-		-d|--dns)
+	-d|--dns)
         DNS="$2"
         shift # Remove argument name from processing
         shift # Remove argument value from processing
