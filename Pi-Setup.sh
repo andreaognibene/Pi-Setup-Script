@@ -55,9 +55,9 @@ ufw logging on
 
 # Static IP setup.
 wget https://raw.githubusercontent.com/andreaognibene/Pi-Setup-Script/main/01-netcfg.yaml -P /etc/netplan/
-sed -i 's/%IP%/${IP}/g' /etc/netplan/01-netcfg.yaml
-sed -i 's/%GATEWAY%/${GATEWAY}/g' /etc/netplan/01-netcfg.yaml
-sed -i 's/%DNS%/${DNS}/g' /etc/netplan/01-netcfg.yaml
+sed -i "s|%IP%|${IP}|g" /etc/netplan/01-netcfg.yaml
+sed -i "s|%GATEWAY%|${GATEWAY}|g" /etc/netplan/01-netcfg.yaml
+sed -i "s|%DNS%|${DNS}|g" /etc/netplan/01-netcfg.yaml
 wget https://raw.githubusercontent.com/andreaognibene/Pi-Setup-Script/main/99-disable-network-config.cfg -P /etc/cloud/cloud.cfg.d/
 rm /etc/netplan/50-cloud-init.yaml
 netplan apply
