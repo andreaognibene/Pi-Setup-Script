@@ -1,2 +1,9 @@
-# Ogni-Pi4-1-Setup-Script
-Post-installation setup script for Ogni-Pi4-1 Raspberry Pi.
+# Pi-Setup-Script
+Post-installation setup script for my Raspberry Pi.
+
+Parameters:
+-h, --hostname    Pi hostname
+-u, --user        Pi username
+-i, --ip          Pi static IP
+-g, --gateway     Pi gateway
+-d, --dns         Pi DNS server
