@@ -1,4 +1,5 @@
 #!/bin/bash
+# Ubuntu Server 20.04 LTS on Raspberry Pi4
 # Parameters: -h --hostname Hostname, -u --user Username, -i --ip Static IP, -g --gateway Gateway, -d --dns DNS server
 
 # Default values if no parameters are provided.
