@@ -108,6 +108,16 @@ systemctl restart sshd
 echo "Done."
 echo
 
+# SSH keys generation.
+echo "Generating public and private keys in /.ssh folder..."
+touch .ssh/authorized_keys
+chmod 700 .ssh
+chmod 600 .ssh/authorized_keys
+ssh-keygen -f .ssh/${HOSTNAME}_root -P ""
+cat .ssh/${HOSTNAME}_root.pub >> .ssh/authorized_keys
+echo "Done."
+echo
+
 read -r -p "Run APT update and upgrade? [Y/n] " input
 case $input in
 	[yY][eE][sS]|[yY])
